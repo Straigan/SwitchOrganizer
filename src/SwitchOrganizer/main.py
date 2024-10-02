@@ -1,4 +1,6 @@
-from tkinter import Button, Entry, Label, scrolledtext, Tk, ttk
+from tkinter import Button, END, Entry, Label, scrolledtext, Tk, ttk
+
+from SwitchOrganizer.switches.switches import connection_and_upload_conf_to_switch
 
 
 def run_app():
@@ -37,19 +39,28 @@ def run_app():
     vvod_ip_ent.place(x=20, y=200)
     
     # Поле ввода комманд для коммутаторов
-    vvod_komand_lbl = Label(text='Комманды для коммутаторов', font='10')
-    vvod_komand_lbl.place(x=560, y=150)
+    vvod_comand_lbl = Label(text='Комманды для коммутаторов', font='10')
+    vvod_comand_lbl.place(x=560, y=150)
     
-    vvod_komand_ent = scrolledtext.ScrolledText(height=20, width=50)
-    vvod_komand_ent.place(x=500, y=200)
+    vvod_comand_ent = scrolledtext.ScrolledText(height=20, width=50)
+    vvod_comand_ent.place(x=500, y=200)
     
     # Кнопка применения комманд для выбранных коммутаторов по IP адресам
-    calc_btn = Button(text='RUN', bg='green',command=())
+    
+    con_up_sw = lambda: connection_and_upload_conf_to_switch(
+                            ip_address_switch=vvod_ip_ent.get("1.0", END), 
+                            username=vvod_login_ent.get(), 
+                            password=vvod_pass_ent.get(), 
+                            commands_to_switch=vvod_comand_ent.get("1.0", END)
+                            )
+    
+    calc_btn = Button(text='RUN', bg='green',command=(con_up_sw))
+
     calc_btn.place(x=405, y=550, relwidth=0.1, relheight=0.04)
     
     result_ent = scrolledtext.ScrolledText(height=20, width=110)
     result_ent.place(x=20, y=600)
-    
+
     window.mainloop()
 
 
