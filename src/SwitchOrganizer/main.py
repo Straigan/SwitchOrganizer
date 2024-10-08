@@ -48,12 +48,12 @@ class App(Tk):
         result_ent.place(x=20, y=600)
 
         # Кнопка применения комманд для выбранных коммутаторов по IP адресам
-        con_up_sw = lambda: connection_and_upload_conf_to_switch(
+        con_up_sw = lambda result_ent=result_ent: connection_and_upload_conf_to_switch(
                                 result_ent=result_ent,
                                 ip_address_switch=vvod_ip_ent.get(1.0, END), 
                                 username=vvod_login_ent.get(), 
                                 password=vvod_pass_ent.get(), 
-                                commands_to_switch=vvod_comand_ent
+                                commands_to_switch=vvod_comand_ent.get(1.0, END)
                                 )
         
         calc_btn = Button(text='RUN', bg='green',command=(con_up_sw))
